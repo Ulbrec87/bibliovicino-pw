@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <embeddable name="App\Library\Domain\BookCopy\BookCopyCover">
+        <field name="source" type="string" enum-type="App\Library\Domain\BookCopy\CoverSource" column="cover_source" length="8"><options><option name="default">none</option></options></field>
+        <field name="reference" type="string" column="cover_reference" length="100" nullable="true"/>
+    </embeddable>
+</doctrine-mapping>

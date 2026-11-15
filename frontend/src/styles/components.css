@@ -1,0 +1,347 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--color-primary-strong);
+}
+
+.brand__mark {
+  width: 2rem;
+  height: 1.65rem;
+  fill: currentcolor;
+}
+
+.brand__page {
+  fill: #d69a3b;
+}
+
+.brand__name {
+  font-family: var(--font-editorial);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.primary-button,
+.secondary-button,
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.primary-button {
+  padding: 0.72rem 1.1rem;
+  color: #fff;
+  background: var(--color-primary);
+  box-shadow: 0 8px 20px rgb(21 92 58 / 17%);
+}
+
+.primary-button:hover:not(:disabled) {
+  background: var(--color-primary-strong);
+}
+
+.secondary-button {
+  padding: 0.68rem 1rem;
+  color: var(--color-primary-strong);
+  border-color: var(--color-border);
+  background: var(--color-surface);
+}
+
+.secondary-button:hover:not(:disabled) {
+  border-color: #a9b5a9;
+  background: var(--color-surface-soft);
+}
+
+.text-button {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.65rem;
+  color: var(--color-primary);
+  background: transparent;
+}
+
+.text-button:hover:not(:disabled) {
+  background: var(--color-primary-soft);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled,
+.text-button:disabled {
+  opacity: 0.62;
+}
+
+.message {
+  margin: 1rem 0 0;
+}
+
+.message--error {
+  color: var(--color-error);
+}
+
+.section-kicker,
+.eyebrow {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-editorial);
+  font-size: clamp(1.8rem, 4vw, 2.35rem);
+  line-height: 1.1;
+}
+
+.section-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.book-copy-grid {
+  display: grid;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Riserviamo una colonna di larghezza fissa alla copertina o al segnaposto, così il testo resta allineato tra le schede. */
+
+.book-copy-card {
+  display: grid;
+  grid-template-columns: 7.35rem minmax(0, 1fr);
+  gap: 1.15rem;
+  min-height: 11rem;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: 0 9px 28px rgb(49 54 45 / 6%);
+}
+
+.book-cover {
+  min-width: 0;
+}
+
+.book-copy-card__content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0.3rem 0.35rem 0.2rem 0;
+}
+
+.book-copy-card__heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.book-copy-card h3 {
+  margin: 0;
+  font-family: var(--font-editorial);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.12;
+}
+
+.book-copy-card__authors {
+  margin: 0.32rem 0 0;
+  color: #4f5951;
+  font-size: 0.97rem;
+}
+
+.book-copy-card__distance {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  margin: 0.1rem 0 0;
+  color: #4f5951;
+  font-size: 0.85rem;
+  font-weight: 720;
+  white-space: nowrap;
+}
+
+.book-copy-card__distance svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 1.8;
+}
+
+.book-copy-card__metadata {
+  margin: 0.8rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.book-copy-card__footer {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.offer-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.offer-badge {
+  padding: 0.32rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.offer-badge--loan {
+  color: var(--color-primary-strong);
+  background: var(--color-primary-soft);
+}
+
+.book-copy-card__owner {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  text-align: right;
+}
+
+.book-copy-card__owner strong {
+  color: var(--color-text);
+}
+
+@media (max-width: 47rem) {
+  .section-heading {
+    align-items: start;
+  }
+}
+
+@media (max-width: 36rem) {
+  .brand__mark {
+    width: 1.7rem;
+  }
+
+  .brand__name {
+    font-size: 1.23rem;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .book-copy-card {
+    grid-template-columns: 5.7rem minmax(0, 1fr);
+    gap: 0.85rem;
+    min-height: 9.2rem;
+    padding: 0.65rem;
+  }
+
+  .book-copy-card__heading {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .book-copy-card h3 {
+    font-size: 1.18rem;
+  }
+
+  .book-copy-card__authors,
+  .book-copy-card__metadata {
+    font-size: 0.8rem;
+  }
+
+  .book-copy-card__distance {
+    font-size: 0.76rem;
+  }
+
+  .book-copy-card__footer {
+    display: block;
+    padding-top: 0.7rem;
+  }
+
+  .offer-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.69rem;
+  }
+
+  .book-copy-card__owner {
+    margin-top: 0.6rem;
+    font-size: 0.73rem;
+    text-align: left;
+  }
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+}
+
+.field-error {
+  margin: -0.4rem 0 0;
+  color: var(--color-error);
+}
+
+.copy-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.book-copy-card__heading h3 a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
+
+.copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+.confirmation-dialog {
+  width: min(32rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  color: inherit;
+  background: var(--color-surface, #fffdf8);
+}
+
+.confirmation-dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.confirmation-dialog h2 {
+  margin-top: 0;
+  font-family: var(--font-editorial);
+}
+
+@media (max-width: 600px) {
+  .copy-actions > button {
+    flex: 1 1 12rem;
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Identity\Domain\User\User" table="identity_user">
+        <id name="id" type="user_id" column="id"/>
+        <field name="email" type="string" column="email" unique="true"/>
+        <field name="passwordHash" type="string" column="password_hash"/>
+        <field name="displayName" type="string" column="display_name"/>
+        <field name="createdAt" type="datetime_immutable" column="created_at"/>
+        <field name="roles" type="json" column="roles"/>
+        <field name="discoveryLocation" type="discovery_location" column="discovery_location" nullable="true"/>
+    </entity>
+</doctrine-mapping>

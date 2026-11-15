@@ -1,0 +1,26 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+
+    session:
+        name: BIBLIOVICINO_SESSION
+        cookie_httponly: true
+        cookie_lifetime: 0
+        cookie_path: /api
+        cookie_samesite: lax
+        cookie_secure: auto
+        gc_maxlifetime: '%app.session.inactivity_timeout_seconds%'
+
+    #esi: true
+    #fragments: true
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
+
+when@prod:
+    framework:
+        session:
+            cookie_secure: true

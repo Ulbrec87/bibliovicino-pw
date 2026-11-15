@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
+
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+# See also https://symfony.com/doc/current/service_container/import.html
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    app.session.inactivity_timeout_seconds: 86400
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+
+    App\Identity\Domain\User\UserRepository:
+        alias: App\Identity\Infrastructure\Persistence\DoctrineUserRepository
+
+    App\Identity\Application\RegisterUser\PasswordHasher:
+        alias: App\Identity\Infrastructure\Security\SymfonyPasswordHasher
+
+    App\Identity\Application\SetDiscoveryLocation\DiscoveryLocationApproximator:
+        alias: App\Identity\Infrastructure\Geolocation\PostgisDiscoveryLocationApproximator
+
+    App\Library\Domain\Book\BookRepository:
+        alias: App\Library\Infrastructure\Persistence\DoctrineBookRepository
+
+    App\Library\Domain\Author\AuthorRepository:
+        alias: App\Library\Infrastructure\Persistence\DoctrineAuthorRepository
+
+    App\Library\Domain\Category\CategoryRepository:
+        alias: App\Library\Infrastructure\Persistence\DoctrineCategoryRepository
+
+    App\Library\Domain\BookCopy\BookCopyRepository:
+        alias: App\Library\Infrastructure\Persistence\DoctrineBookCopyRepository
+
+    App\Library\Application\BookCopyManagement\BookCopyLock:
+        alias: App\Library\Infrastructure\Persistence\DoctrineBookCopyLock
+
+    App\Library\Application\PublicApi\LibraryForLoan:
+        alias: App\Library\Application\Loan\LibraryForLoanAdapter
+
+    App\Loan\Domain\LoanRequestRepository:
+        alias: App\Loan\Infrastructure\Persistence\DoctrineLoanRequestRepository
+
+    App\Loan\Application\PublicApi\ActiveLoanRequests:
+        alias: App\Loan\Infrastructure\Persistence\DoctrineLoanRequestRepository
+
+    App\Shared\Application\AtomicOperation:
+        alias: App\Shared\Infrastructure\Persistence\DoctrineAtomicOperation
+
+    App\ReadModel\AdminStatistics\Application\AdminStatisticsStore:
+        alias: App\ReadModel\AdminStatistics\Infrastructure\Persistence\SqlAdminStatisticsStore
+
+    App\ReadModel\LoanRequests\Application\LoanRequestsStore:
+        alias: App\ReadModel\LoanRequests\Infrastructure\Persistence\SqlLoanRequestsStore
+
+    App\ReadModel\BookCopy\Application\BookCopyCollectionStore:
+        alias: App\ReadModel\BookCopy\Infrastructure\Persistence\SqlBookCopyCollectionStore
+
+    App\ReadModel\Discovery\Application\SearchBookCopies\DiscoveryBookCopySearch:
+        alias: App\ReadModel\Discovery\Infrastructure\Persistence\PostgisDiscoveryBookCopySearch
+
+    App\ReadModel\BookCopy\Application\BookCopyReadStore:
+        alias: App\ReadModel\BookCopy\Infrastructure\Persistence\SqlBookCopyReadStore
+
+    App\Library\Application\LibraryReadStore:
+        alias: App\Library\Infrastructure\Persistence\SqlLibraryReadStore
+
+    App\Identity\Application\PublicApi\DiscoveryLocationAvailability:
+        alias: App\Identity\Application\PublicApi\DiscoveryLocationAvailabilityAdapter
+
+    App\Identity\Application\PublicApi\CurrentUserId:
+        alias: App\Identity\Infrastructure\Security\SymfonyCurrentUserId
+
+    App\Shared\Application\Clock:
+        alias: App\Shared\Infrastructure\Clock\PsrClockAdapter
+
+    App\Identity\Infrastructure\Http\SessionInactivitySubscriber:
+        arguments:
+            $inactivityTimeoutSeconds: '%app.session.inactivity_timeout_seconds%'
+
+    security.authentication.session_strategy:
+        class: Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy
+        arguments: ['migrate']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Library\Application\ExternalCatalog\ExternalBookCatalog:
+        alias: App\Library\Infrastructure\OpenLibraryBookCatalog
+
+    App\Library\Infrastructure\OpenLibraryBookCatalog:
+        arguments:
+            $baseUrl: '%env(OPEN_LIBRARY_BASE_URL)%'
+            $coversBaseUrl: '%env(OPEN_LIBRARY_COVERS_BASE_URL)%'
+            $userAgent: '%env(OPEN_LIBRARY_USER_AGENT)%'
+            $timeout: '%env(float:OPEN_LIBRARY_TIMEOUT)%'
+            $operationTimeout: '%env(float:OPEN_LIBRARY_OPERATION_TIMEOUT)%'
+
+    App\Library\Application\Cover\ExternalCoverReferences:
+        alias: App\Library\Infrastructure\Cover\OpenLibraryCoverReferences
+    App\Library\Application\Cover\CoverCopyAccess:
+        alias: App\Library\Infrastructure\Cover\DoctrineCoverCopyAccess
+    App\Library\Application\Cover\CoverImageProcessor:
+        alias: App\Library\Infrastructure\Cover\ImagickCoverImageProcessor
+    App\Library\Application\Cover\CoverStorage:
+        alias: App\Library\Infrastructure\Cover\LocalCoverStorage
+    App\Library\Infrastructure\Cover\LocalCoverStorage:
+        arguments:
+            $root: '%env(COVER_STORAGE_ROOT)%'
+    App\Library\Application\PublicApi\CoverView:
+        alias: App\Library\Infrastructure\Cover\BookCopyCoverView
+    App\Library\Infrastructure\Cover\BookCopyCoverView:
+        arguments:
+            $coversBaseUrl: '%env(OPEN_LIBRARY_COVERS_BASE_URL)%'

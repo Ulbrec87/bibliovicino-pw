@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Library\Domain\BookCopy\BookCopy" table="library_book_copy">
+        <indexes>
+            <index name="idx_library_book_copy_owner" columns="owner_id"/>
+            <index name="idx_library_book_copy_book" columns="book_id"/>
+        </indexes>
+        <id name="id" type="book_copy_id" column="id"/>
+        <field name="ownerId" type="owner_id" column="owner_id"/>
+        <field name="availabilityStatus" type="string" enum-type="App\Library\Domain\BookCopy\AvailabilityStatus" column="availability_status" length="11"/>
+        <field name="offeredForLoan" type="boolean" column="offered_for_loan"/>
+        <field name="isPublished" type="boolean" column="is_published"/>
+        <field name="notes" type="string" column="notes" length="1100" nullable="true"/>
+        <field name="archivedAt" type="datetime_immutable" column="archived_at" nullable="true"/>
+        <field name="createdAt" type="datetime_immutable" column="created_at"/>
+        <field name="updatedAt" type="datetime_immutable" column="updated_at"/>
+
+        <embedded name="cover" class="App\Library\Domain\BookCopy\BookCopyCover" use-column-prefix="false"/>
+
+        <many-to-one field="book" target-entity="App\Library\Domain\Book\Book">
+            <join-column name="book_id" referenced-column-name="id" nullable="false" on-delete="RESTRICT"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

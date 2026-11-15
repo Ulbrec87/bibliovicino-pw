@@ -1,0 +1,110 @@
+.copy-detail__main {
+  display: grid;
+  grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.copy-detail__information {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.copy-detail h1 {
+  margin: .5rem 0;
+  font-family: var(--font-editorial);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.12;
+}
+
+.copy-detail__authors {
+  font-size: 1.2rem;
+  color: var(--color-muted);
+}
+
+.copy-detail__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.copy-detail__categories li {
+  padding: .35rem .7rem;
+  border-radius: 2rem;
+  background: var(--color-primary-soft);
+}
+
+.copy-detail__status {
+  font-weight: 750;
+}
+
+.copy-detail__isbn {
+  font-size: .9rem;
+  color: var(--color-muted);
+}
+
+.copy-detail__notes,
+.copy-management {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+}
+
+.copy-detail__notes h2,
+.copy-management h2 {
+  margin-top: 0;
+  font-family: var(--font-editorial);
+}
+
+.copy-detail__notes p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.copy-notes-form {
+  display: grid;
+  gap: .65rem;
+}
+
+.copy-notes-form textarea {
+  width: 100%;
+  padding: .8rem;
+  resize: vertical;
+  border: 1px solid var(--color-control-border);
+  border-radius: .5rem;
+  font: inherit;
+  color: inherit;
+  background: var(--color-background);
+}
+
+.copy-publication {
+  margin-top: 1rem;
+}
+
+.copy-remove {
+  color: #8e302b;
+}
+
+.copy-detail__loading {
+  min-height: 20rem;
+  padding: 2rem;
+}
+
+@media (max-width: 600px) {
+  .copy-detail__main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .copy-detail__cover {
+    width: min(11rem, 100%);
+    margin-inline: auto;
+  }
+
+  .copy-detail__notes,
+  .copy-management {
+    padding: 1rem;
+  }
+}

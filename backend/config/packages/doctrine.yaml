@@ -1,0 +1,76 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        profiling_collect_backtrace: '%kernel.debug%'
+        mapping_types:
+            geography: discovery_location
+        types:
+            user_id: App\Identity\Infrastructure\Persistence\Doctrine\Type\UserIdType
+            discovery_location: App\Identity\Infrastructure\Persistence\Doctrine\Type\DiscoveryLocationType
+            book_id: App\Library\Infrastructure\Persistence\Doctrine\Type\BookIdType
+            author_id: App\Library\Infrastructure\Persistence\Doctrine\Type\AuthorIdType
+            category_id: App\Library\Infrastructure\Persistence\Doctrine\Type\CategoryIdType
+            isbn: App\Library\Infrastructure\Persistence\Doctrine\Type\IsbnType
+            book_copy_id: App\Library\Infrastructure\Persistence\Doctrine\Type\BookCopyIdType
+            owner_id: App\Library\Infrastructure\Persistence\Doctrine\Type\OwnerIdType
+    orm:
+        validate_xml_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        identity_generation_preferences:
+            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+        auto_mapping: false
+        mappings:
+            Identity:
+                type: xml
+                dir: '%kernel.project_dir%/src/Identity/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Identity\Domain\User'
+                is_bundle: false
+            LibraryBook:
+                type: xml
+                dir: '%kernel.project_dir%/src/Library/Infrastructure/Persistence/Doctrine/Mapping/Book'
+                prefix: 'App\Library\Domain\Book'
+                is_bundle: false
+            LibraryAuthor:
+                type: xml
+                dir: '%kernel.project_dir%/src/Library/Infrastructure/Persistence/Doctrine/Mapping/Author'
+                prefix: 'App\Library\Domain\Author'
+                is_bundle: false
+            LibraryCategory:
+                type: xml
+                dir: '%kernel.project_dir%/src/Library/Infrastructure/Persistence/Doctrine/Mapping/Category'
+                prefix: 'App\Library\Domain\Category'
+                is_bundle: false
+            Loan:
+                type: xml
+                dir: '%kernel.project_dir%/src/Loan/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Loan\Domain'
+                is_bundle: false
+            LibraryBookCopy:
+                type: xml
+                dir: '%kernel.project_dir%/src/Library/Infrastructure/Persistence/Doctrine/Mapping/BookCopy'
+                prefix: 'App\Library\Domain\BookCopy'
+                is_bundle: false
+
+when@test:
+    doctrine:
+        dbal:
+            # "TEST_TOKEN" is typically set by ParaTest
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

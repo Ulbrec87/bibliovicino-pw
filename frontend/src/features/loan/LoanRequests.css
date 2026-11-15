@@ -1,0 +1,73 @@
+.loan-requests {
+  max-width: 72rem;
+}
+
+.loan-section {
+  margin-top: 2rem;
+}
+
+.loan-section > h2 {
+  margin-bottom: 1rem;
+}
+
+.loan-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 0 0 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: .8rem;
+}
+
+.loan-card__body {
+  min-width: 0;
+}
+
+.loan-card__body h3 {
+  margin: 0 0 .4rem;
+}
+
+.loan-card__body p {
+  margin: .3rem 0;
+  overflow-wrap: anywhere;
+}
+
+.loan-card__status {
+  font-weight: 700;
+}
+
+.loan-card .copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .8rem;
+}
+
+.loan-history {
+  margin-top: 1.4rem;
+}
+
+.loan-history summary {
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 35rem) {
+  .loan-card {
+    gap: 0.75rem;
+  }
+}
+
+.loan-cover {
+  width: 5rem;
+  height: 7rem;
+}
+
+@media (max-width: 35rem) {
+  .loan-cover {
+    width: 4rem;
+    height: 5.5rem;
+  }
+}

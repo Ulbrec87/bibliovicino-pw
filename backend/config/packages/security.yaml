@@ -1,0 +1,51 @@
+security:
+    password_hashers:
+        App\Identity\Infrastructure\Security\SecurityUser: 'auto'
+
+    providers:
+        identity_users:
+            id: App\Identity\Infrastructure\Security\SecurityUserProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: identity_users
+            entry_point: App\Identity\Infrastructure\Security\ApiAuthenticationEntryPoint
+            login_throttling:
+                max_attempts: 5
+                interval: '15 minutes'
+            json_login:
+                check_path: api_auth_login
+                username_path: email
+                password_path: password
+                success_handler: App\Identity\Infrastructure\Security\JsonLoginSuccessHandler
+                failure_handler: App\Identity\Infrastructure\Security\JsonLoginFailureHandler
+            logout:
+                path: api_auth_logout
+                invalidate_session: true
+                delete_cookies:
+                    BIBLIOVICINO_SESSION:
+                        path: /api
+
+    access_control:
+        - { path: ^/api/auth/me$, roles: ROLE_USER }
+        - { path: ^/api/profile$, roles: ROLE_USER }
+        - { path: ^/api/profile/discovery-location$, roles: ROLE_USER }
+        - { path: ^/api/discovery/book-copies$, roles: ROLE_USER }
+        - { path: ^/api/library, roles: ROLE_USER }
+        - { path: ^/api/loan, roles: ROLE_USER }
+        - { path: ^/api/admin(?:/|$), roles: ROLE_ADMIN }
+        - { path: ^/api, roles: PUBLIC_ACCESS }
+
+when@test:
+    security:
+        password_hashers:
+            App\Identity\Infrastructure\Security\SecurityUser:
+                algorithm: auto
+                cost: 4
+                time_cost: 3
+                memory_cost: 10

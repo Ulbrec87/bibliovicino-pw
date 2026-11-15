@@ -1,0 +1,7 @@
+.git
+.env
+backend/.phpunit.cache
+backend/var
+backend/vendor
+frontend/dist
+frontend/node_modules

@@ -1,0 +1,99 @@
+.personal-book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 1.2rem;
+}
+
+.personal-book {
+  display: flex;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.personal-book__details {
+  min-width: 0;
+}
+
+.personal-book__details h2 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-editorial);
+  font-size: 1.4rem;
+  line-height: 1.15;
+}
+
+.personal-book__details p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.personal-book__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 1rem;
+}
+
+.personal-book__badges span {
+  padding: 0.25rem 0.55rem;
+  border-radius: 2rem;
+  background: var(--color-background-deep);
+  font-size: 0.77rem;
+  font-weight: 750;
+}
+
+.personal-book__badges .personal-book__status {
+  color: var(--color-primary-strong);
+  background: var(--color-primary-soft);
+}
+
+@media (max-width: 36rem) {
+  .personal-book {
+    gap: 0.75rem;
+  }
+}
+
+.personal-book--loading .personal-book__cover,
+.personal-book--loading .personal-book__details span {
+  background: var(--color-background-deep);
+  animation: library-pulse 1.3s ease-in-out infinite alternate;
+}
+
+.personal-book--loading .personal-book__details {
+  flex: 1;
+}
+
+.personal-book--loading .personal-book__details span {
+  display: block;
+  width: 80%;
+  height: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.3rem;
+}
+
+.personal-book--loading .personal-book__details span:last-child {
+  width: 55%;
+}
+
+@keyframes library-pulse {
+  to {
+    opacity: 0.48;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .personal-book--loading .personal-book__cover,
+  .personal-book--loading .personal-book__details span {
+    animation: none;
+  }
+}
+
+.personal-book__details h2 a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
